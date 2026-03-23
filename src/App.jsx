@@ -1,38 +1,33 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Products from './Products';
 import './App.css';
+import Sidebar from './components/Sidebar';
+import Clients from './pages/clients/Clients';
 
 function App() {
   return (
     <Router>
       <div className="d-flex">
         {/* Sidebar */}
-        <nav className="bg-light border-end" style={{ width: '250px', minHeight: '100vh' }}>
-          <div className="p-3">
-            <h5 className="mb-3">Sistema de Ventas</h5>
-            <ul className="nav flex-column">
-              <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  Inicio
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/products">
-                  Productos
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </nav>
-
+        <Sidebar />
         {/* Main Content */}
-        <div className="flex-grow-1">
-          {/* <div className="container py-5"> */}
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/products" element={<Products />} />
-            </Routes>
-          {/* </div> */}
+        <div className="flex-grow-1 bg-light" style={{ minHeight: "100vh" }}>
+          {/* Header */}
+          <div className="bg-white shadow-sm p-3">
+            <h5 className="mb-0">Panel Administrativo</h5>
+          </div>
+          {/* Contenido */}
+          <div className="p-4">
+            <div className="card">
+              <div className="card-body">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/products" element={<Products />} />
+                  <Route path="/clients" element={<Clients />} />
+                </Routes>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </Router>

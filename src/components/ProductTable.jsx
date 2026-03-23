@@ -8,7 +8,6 @@ const ProductTable = ({ products, onDelete, onEdit }) => {
       successAlert("Producto eliminado");
     }
   };
-  
   return (
     <table className="table table-striped table-hover">
       <thead className="table-dark">

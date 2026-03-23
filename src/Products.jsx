@@ -49,7 +49,10 @@ const Products = () => {
       ) : products.length === 0 ? (
         <p className="text-center mt-5">No hay productos registrados</p>
       ) : (
-        <ProductTable products={products} onDelete={deleteProduct} onEdit={handleEdit} />
+        <ProductTable 
+          products={products} 
+          onDelete={deleteProduct} 
+          onEdit={handleEdit} />
       )}
       {/* <ProductTable 
         products={products} 
