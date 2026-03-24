@@ -1,11 +1,16 @@
 import { Link, useLocation } from "react-router-dom";
+import api from "../services/api";
 
 const Sidebar = () => {
   const location = useLocation();
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    window.location.href = "/login";
-  }
+  const handleLogout = async () => {
+    try {
+        await api.post('/logout');
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+    } catch (error) {console.error("Error al cerrar sesión:", error);}
+  };
   return (
     <nav className="bg-dark text-white border-end" style={{ width: '250px', minHeight: '100vh' }}>
       <div className="p-3">

@@ -8,9 +8,10 @@ import Login from './pages/auth/Login';
 
 function App() {
   const location = useLocation();
-  const user = JSON.parse(localStorage.getItem("user"));
   const isLogin = location.pathname === '/login';
-  const isAuth = !!user; // 🔥 VER SI HAY USUARIO EN LOCALSTORAGE
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
+  const isAuth = !!token; // 🔥 VER SI HAY USUARIO EN LOCALSTORAGE
   
   return (
     <div className="d-flex">

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import api from "../../services/api";
 
 const Login = () => {
   const [form, setForm] = useState({email: "",password: ""});
@@ -7,22 +8,19 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(form)
-      });
-      const data = await res.json();
-      if (!res.ok) {
+      const res = await api.post('/login', { email: form.email, password: form.password }); 
+      const data = res.data; 
+      console.log(res)
+      if (!res.status === 200) {
         setError(data.message);
         return;
       }
       // 🔥 GUARDAR USUARIO
+      localStorage.setItem("token", data.token); // Si tu API devuelve un token, guárdalo también
       localStorage.setItem("user", JSON.stringify(data.user));
+      
       // 🔥 REDIRIGIR
-      window.location.href = "/clients";
+      window.location.href = "/home";
       console.log("Usuario:", data.user);
       // 👉 luego aquí guardaremos sesión
     } catch (err) {console.log(err);}
