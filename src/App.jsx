@@ -1,36 +1,63 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import {  Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import Products from './Products';
 import './App.css';
 import Sidebar from './components/Sidebar';
 import Clients from './pages/clients/Clients';
 
+import Login from './pages/auth/Login';
+
 function App() {
+  const location = useLocation();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const isLogin = location.pathname === '/login';
+  const isAuth = !!user; // 🔥 VER SI HAY USUARIO EN LOCALSTORAGE
+  
   return (
-    <Router>
-      <div className="d-flex">
-        {/* Sidebar */}
-        <Sidebar />
-        {/* Main Content */}
-        <div className="flex-grow-1 bg-light" style={{ minHeight: "100vh" }}>
-          {/* Header */}
+    <div className="d-flex">
+      {/* Sidebar SOLO si NO es login */}
+    {isAuth && !isLogin && <Sidebar />}
+      {/* Main Content */}
+      <div className="flex-grow-1 bg-light" style={{ minHeight: "100vh" }}>
+        {/* Header SOLO si NO es login */}
+        {!isLogin && (
           <div className="bg-white shadow-sm p-3">
             <h5 className="mb-0">Panel Administrativo</h5>
           </div>
-          {/* Contenido */}
-          <div className="p-4">
+        )}
+        {/* Contenido */}
+        <div className="p-4">
+          {/* Si es login, no uses card */}
+          {isLogin ? (
+            <Routes>
+              {/* <Route path="/login" element={<Login />} /> */}
+              <Route
+                path="/login"
+                element={!isAuth ? <Login /> : <Navigate to="/home" />}
+              />
+            </Routes>
+          ) : (
             <div className="card">
               <div className="card-body">
                 <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/products" element={<Products />} />
-                  <Route path="/clients" element={<Clients />} />
+                  <Route path="/" element={<Navigate to="/login" />} />
+                  {/* <Route path="/products" element={<Products />} />
+                  <Route path="/clients" element={<Clients />} /> */}
+                  <Route path="/home" element={<Home />} />
+                  <Route
+                    path="/clients"
+                    element={isAuth ? <Clients /> : <Navigate to="/login" />}
+                  />
+                  <Route
+                    path="/products"
+                    element={isAuth ? <Products /> : <Navigate to="/login" />}
+                  />
                 </Routes>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
-    </Router>
+    </div>
   );
 }
 
