@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faPen, faEdit } from '@fortawesome/free-solid-svg-icons'
 import { confirmDelete, successAlert } from '../../helper/alerts';
 
 const CategoryTable = ({ categories, onDelete, onEdit, currentPage, lastPage, total, fetchCategories }) => {
@@ -12,9 +12,8 @@ const CategoryTable = ({ categories, onDelete, onEdit, currentPage, lastPage, to
   };
   return (
     <>  
-    
-    <table className="table">
-      <thead className="table-secondary text-center">
+    <table className="table table-hover">
+      <thead className="table-light text-center">
         <tr>
           <th>ID</th>
           <th>Nombre</th>
@@ -25,20 +24,20 @@ const CategoryTable = ({ categories, onDelete, onEdit, currentPage, lastPage, to
       <tbody>
         {categories.map(category => (
           <tr key={category.id}>
-            <td>{category.id}</td>
+            <td className='text-center'>{category.id}</td>
             <td>{category.name}</td>
-            <td>{formatDateTime(category.created_at)}</td>
+            <td className='text-center'>{formatDateTime(category.created_at)}</td>
             <td>
               <div className="d-flex justify-content-center gap-1">
                 <button 
-                  className="btn btn-outline-danger btn-sm me-2"
-                  onClick={() => handleDelete(category.id)}>
-                  <FontAwesomeIcon icon={faTrash} />
+                  className="btn btn-outline-primary btn-sm border-0"
+                  onClick={() => onEdit(category)}>
+                  <FontAwesomeIcon icon={faEdit} />
                 </button>
                 <button 
-                  className="btn btn-outline-primary btn-sm"
-                  onClick={() => onEdit(category)}>
-                  <FontAwesomeIcon icon={faPen} />
+                  className="btn btn-outline-danger btn-sm border-0"
+                  onClick={() => handleDelete(category.id)}>
+                  <FontAwesomeIcon icon={faTrash} />
                 </button>
               </div>
             </td>

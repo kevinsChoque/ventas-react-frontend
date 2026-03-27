@@ -4,7 +4,7 @@
 }
 
 .bg-purple {
-  background-color: #6c63ff !important; /* Hex color from the image */
+  background-color: #666cff !important; /* Hex color from the image */
   color: white !important;
 }
 
@@ -24,7 +24,7 @@
 
 .nav-link.active {
   color: #ffffff !important; /* White text for active links */
-  background-color: #6c63ff !important; /* Purple background for active links */
+  background-color: #666cff !important; /* Purple background for active links */
 }
 
 .nav-link .d-inline-flex {
@@ -41,7 +41,7 @@
 }
 
 .nav-item .nav-link.active {
-  background-color: #6c63ff !important; /* Purple background for selected item */
+  background-color: #666cff !important; /* Purple background for selected item */
   color: #ffffff !important; /* White text for selected item */
 }
 
@@ -56,12 +56,12 @@
 }
 
 .nav-item .dropdown-menu .nav-link.active {
-  background-color: #6c63ff !important; /* Purple background for selected dropdown item */
+  background-color: #666cff !important; /* Purple background for selected dropdown item */
   color: #ffffff !important; /* White text for selected dropdown item */
 }
 
 .nav-item .dropdown-toggle.active {
-  background-color: red !important; /* Red for active dropdown toggle */
+  background-color: #666cff !important; /* Purple for active dropdown toggle */
   color: #ffffff !important; /* White text for active dropdown toggle */
 }
 

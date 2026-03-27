@@ -32,41 +32,48 @@ const Categories = () => {
   }
   return (
     <>
-    <FullScreenLoader show={loading} />
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h3 className="mb-0">Categorias</h3>
-        <button 
-          className="btn btn-primary" 
-          onClick={handleNew}>          
-          <FontAwesomeIcon icon={faPlus} className="me-2" />
-          Nueva Categoría
-        </button>
+    <div className="card shadow-lg border-0">
+      <div className="card-header bg-primary text-white border-0 mb-3">
+        <div className="d-flex justify-content-between align-items-center">
+          <h3 className="mb-0" style={{fontSize: '1.6em', fontWeight: 400, letterSpacing: 'normal', lineHeight: '24px'}}>Listado de Categorías</h3>
+          <button 
+            className="btn btn-info btn-sm" 
+            onClick={handleNew}>          
+            <FontAwesomeIcon icon={faPlus} className="me-1" />
+            Nueva
+          </button>
+        </div>
       </div>
-      <div className="table-responsive">
-        <CategoryTable 
-          categories={categories} 
-          onDelete={deleteCategory} 
-          onEdit={handleEdit}
-          currentPage={currentPage}
-          lastPage={lastPage}
-          total={total}
-          fetchCategories={fetchCategories}
+      {/* <div className="card-body px-1"> */}
+          <FullScreenLoader show={loading} />
+          <div className="table-responsive">
+            <CategoryTable 
+              categories={categories} 
+              onDelete={deleteCategory} 
+              onEdit={handleEdit}
+              currentPage={currentPage}
+              lastPage={lastPage}
+              total={total}
+              fetchCategories={fetchCategories}
+              />
+            <Pagination
+              currentPage={currentPage}
+              lastPage={lastPage}
+              total={total}
+              fetchClients={fetchCategories}
+            />
+          </div>
+          {/* modal */}
+          <CategoryModal
+            isOpen={showModal}
+            onClose={() => setShowModal(false)}
+            createCategory={createCategory}
+            updateCategory={updateCategory}
+            selectedCategory={selectedCategory}
           />
-        <Pagination
-          currentPage={currentPage}
-          lastPage={lastPage}
-          total={total}
-          fetchClients={fetchCategories}
-        />
-      </div>
-      {/* modal */}
-      <CategoryModal
-        isOpen={showModal}
-        onClose={() => setShowModal(false)}
-        createCategory={createCategory}
-        updateCategory={updateCategory}
-        selectedCategory={selectedCategory}
-      />
+      {/* </div> */}
+    </div>
+    
     </>
   );
 };

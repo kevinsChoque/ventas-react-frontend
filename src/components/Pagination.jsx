@@ -1,6 +1,6 @@
 const Pagination = ({ currentPage, lastPage, total, fetchClients }) => {
   return (
-    <div className="d-flex justify-content-between align-items-center mt-3">
+    <div className="d-flex justify-content-between align-items-center my-3 px-2">
       {/* Total */}
       <div>Total {total}</div>
       {/* Controles */}

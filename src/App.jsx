@@ -38,8 +38,8 @@ function App() {
               />
             </Routes>
           ) : (
-            <div className="card">
-              <div className="card-body">
+            // <div className="card">
+            //   <div className="card-body">
                 <Routes>
                   <Route path="/" element={<Navigate to="/login" />} />
                   {/* <Route path="/products" element={<Products />} />
@@ -58,8 +58,8 @@ function App() {
                     element={isAuth ? <Categories /> : <Navigate to="/login" />}
                   />
                 </Routes>
-              </div>
-            </div>
+            //   </div>
+            // </div>
           )}
         </div>
       </div>
