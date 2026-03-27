@@ -53,9 +53,7 @@ const ClientTable = ({ clients, onDelete, onEdit, currentPage, lastPage, total, 
         ))}
       </tbody>
     </table>
-    
   </>
-    
   )
 }
 export default ClientTable;
