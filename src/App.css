@@ -2,3 +2,74 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.bg-purple {
+  background-color: #6c63ff !important; /* Hex color from the image */
+  color: white !important;
+}
+
+.bg-sidebar {
+  background-color: #f7f7f9 !important;
+}
+
+.text-sidebar {
+  color: #3b4055 !important;
+  font-weight: 500; /* Make text slightly bolder */
+}
+
+.nav-link {
+  color: #3b4055 !important;
+  font-weight: 500; /* Make links slightly bolder */
+}
+
+.nav-link.active {
+  color: #ffffff !important; /* White text for active links */
+  background-color: #6c63ff !important; /* Purple background for active links */
+}
+
+.nav-link .d-inline-flex {
+  color: #3b4055 !important; /* Icon color */
+}
+
+.nav-link.active .d-inline-flex {
+  color: #ffffff !important; /* White icons for active links */
+}
+
+.nav-item .nav-link:hover {
+  background-color: #e4e6f0 !important; /* Light gray for hover effect */
+  color: #3b4055 !important; /* Dark text for hover effect */
+}
+
+.nav-item .nav-link.active {
+  background-color: #6c63ff !important; /* Purple background for selected item */
+  color: #ffffff !important; /* White text for selected item */
+}
+
+.nav-item .dropdown-menu {
+  background-color: #f0f0f0 !important; /* Default light gray for dropdown background */
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.nav-item .dropdown-menu .nav-link {
+  color: #3b4055 !important; /* Dark text for dropdown items */
+}
+
+.nav-item .dropdown-menu .nav-link.active {
+  background-color: #6c63ff !important; /* Purple background for selected dropdown item */
+  color: #ffffff !important; /* White text for selected dropdown item */
+}
+
+.nav-item .dropdown-toggle.active {
+  background-color: red !important; /* Red for active dropdown toggle */
+  color: #ffffff !important; /* White text for active dropdown toggle */
+}
+
+.nav-item.active .dropdown-menu {
+  background-color: #e6e7ea !important; /* Light gray for active dropdown */
+}
+
+.kev:hover {
+  background-color: #e4e6f0 !important; /* Light gray for hover effect */
+  color: #3b4055 !important; /* Dark text for hover effect */
+}
