@@ -3,6 +3,7 @@ import Products from './Products';
 import './App.css';
 import Sidebar from './components/Sidebar';
 import Clients from './pages/clients/Clients';
+import Categories from './pages/categories/Categories';
 
 import Login from './pages/auth/Login';
 
@@ -51,6 +52,10 @@ function App() {
                   <Route
                     path="/products"
                     element={isAuth ? <Products /> : <Navigate to="/login" />}
+                  />
+                  <Route
+                    path="/categories"
+                    element={isAuth ? <Categories /> : <Navigate to="/login" />}
                   />
                 </Routes>
               </div>
