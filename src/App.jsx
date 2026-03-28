@@ -4,6 +4,7 @@ import './App.css';
 import Sidebar from './components/Sidebar';
 import Clients from './pages/clients/Clients';
 import Categories from './pages/categories/Categories';
+import Navbar from './components/Navbar';
 
 import Login from './pages/auth/Login';
 
@@ -21,10 +22,8 @@ function App() {
       {/* Main Content */}
       <div className="flex-grow-1 bg-light" style={{ minHeight: "100vh" }}>
         {/* Header SOLO si NO es login */}
-        {!isLogin && (
-          <div className="bg-white shadow-sm p-3">
-            <h5 className="mb-0">Panel Administrativo</h5>
-          </div>
+        {!isLogin && isAuth && (
+          <Navbar user={user} />
         )}
         {/* Contenido */}
         <div className="p-4">
