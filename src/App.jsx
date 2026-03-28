@@ -26,7 +26,7 @@ function App() {
           <Navbar user={user} />
         )}
         {/* Contenido */}
-        <div className="p-4">
+        {/* <div className="p-4"> */}
           {/* Si es login, no uses card */}
           {isLogin ? (
             <Routes>
@@ -60,7 +60,7 @@ function App() {
             //   </div>
             // </div>
           )}
-        </div>
+        {/* </div> */}
       </div>
     </div>
   );
