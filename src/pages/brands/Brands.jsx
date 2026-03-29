@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faPlus, faBox } from '@fortawesome/free-solid-svg-icons'
-import { faPlus, faFileExport, faFileImport, faTachometerAlt } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faTachometerAlt } from '@fortawesome/free-solid-svg-icons'
 import BrandTable from '../../components/brands/BrandTable';
 import BrandModal from '../../components/brands/BrandModal';
 import FullScreenLoader from '../../components/FullScreenLoader';
