@@ -17,11 +17,14 @@ const Brands = () => {
     currentPage,
     lastPage,
     total,
-    fetchBrands
+    fetchBrands,
+    perPage,
+    setPerPage
    } = useBrands();
   
   const [showModal, setShowModal] = useState(false)
   const [selectedBrand, setSelectedBrand] = useState(null)
+  
   const handleNew = (e) => {
     setShowModal(true); 
     setSelectedBrand(null); 
@@ -72,13 +75,15 @@ const Brands = () => {
                 lastPage={lastPage}
                 total={total}
                 fetchBrands={fetchBrands}
+                perPage={perPage}
+                setPerPage={setPerPage}
                 />
-              <Pagination
+              {/* <Pagination
                 currentPage={currentPage}
                 lastPage={lastPage}
                 total={total}
                 fetchClients={fetchBrands}
-              />
+              /> */}
             </div>
             {/* modal */}
             <BrandModal
