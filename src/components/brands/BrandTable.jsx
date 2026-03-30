@@ -3,6 +3,8 @@ import { faTrash, faPen, faEdit } from '@fortawesome/free-solid-svg-icons'
 import { confirmDelete, successAlert } from '../../helper/alerts';
 
 import DataTableImport from "react-data-table-component";
+import CustomPagination from '../CustomPagination';
+import '../CustomPagination.css';
 
 const BrandTable = ({ brands, onDelete, onEdit, currentPage, lastPage, total, fetchBrands, perPage, setPerPage }) => {
   // console.log('brands')
@@ -83,7 +85,7 @@ const BrandTable = ({ brands, onDelete, onEdit, currentPage, lastPage, total, fe
     <DataTableImport.default
       columns={columns}
       data={brands}
-      pagination
+      pagination={false} // Disable default pagination
       paginationServer
 
       paginationTotalRows={total}
@@ -101,6 +103,19 @@ const BrandTable = ({ brands, onDelete, onEdit, currentPage, lastPage, total, fe
       }}
       paginationComponentOptions={paginationOptions} // Personalización del texto del paginador
       noDataComponent={<div className="text-center p-4">No hay registros de marcas para mostrar</div>}
+    />
+    <CustomPagination
+      currentPage={currentPage}
+      totalPages={lastPage}
+      rowsPerPage={perPage}
+      totalRows={total}
+      onPageChange={(page) => {
+        fetchBrands(page, perPage);
+      }}
+      onRowsPerPageChange={(newPerPage) => {
+        setPerPage(newPerPage);
+        fetchBrands(1, newPerPage); // Reset to the first page when changing rows per page
+      }}
     />
   </>
   )
