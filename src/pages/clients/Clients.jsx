@@ -17,7 +17,11 @@ const Clients = () => {
     currentPage,
     lastPage,
     total,
-    fetchClients
+    fetchClients,
+    perPage,
+    setPerPage,
+    searchQuery,
+    setSearchQuery
    } = useClients();
   
   const [showModal, setShowModal] = useState(false)
@@ -34,7 +38,9 @@ const Clients = () => {
     <>
     <div className="d-flex align-items-center justify-content-between bg-body-secondary p-2 border-bottom">
       <div className="d-flex align-items-center gap-1">
-        <span className="fw-semibold text-sidebar" style={{ color: '#3b4055' }}><FontAwesomeIcon icon={faTachometerAlt} /> Clientes</span>
+        <span className="fw-semibold text-sidebar" style={{ color: '#3b4055' }}>
+          {/* <FontAwesomeIcon icon={faTachometerAlt} />  */}
+        Clientes</span>
       </div>
       <div className="d-flex gap-2">
         <button className="btn btn-primary btn-sm fw-semibold px-3 d-flex align-items-center" onClick={handleNew}>          
@@ -46,10 +52,10 @@ const Clients = () => {
       <div className="card shadow-lg border-0">
         <div className="card-header bg-primary text-white border-0 mb-3">
           <div className="d-flex justify-content-between align-items-center">
-            <h3 className="mb-0" style={{fontSize: '1.6em', fontWeight: 300, letterSpacing: 'normal', lineHeight: '24px'}}>Listado de Clientes</h3>
+            <h3 className="mb-0" style={{fontSize: '1.3em', fontWeight: 300, letterSpacing: 'normal', lineHeight: '24px'}}>Listado de Clientes</h3>
           </div>
         </div>
-        {/* <div className="card-body"> */}
+        <div className="card-body p-0">
           <FullScreenLoader show={loading} />
           <div className="table-responsive">
             <ClientTable 
@@ -60,15 +66,12 @@ const Clients = () => {
               lastPage={lastPage}
               total={total}
               fetchClients={fetchClients}
+              perPage={perPage}
+              setPerPage={setPerPage}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
               />
-            <Pagination
-              currentPage={currentPage}
-              lastPage={lastPage}
-              total={total}
-              fetchClients={fetchClients}
-            />
           </div>
-          {/* modal */}
           <ClientModal
             isOpen={showModal}
             onClose={() => setShowModal(false)}
@@ -76,7 +79,7 @@ const Clients = () => {
             updateClient={updateClient}
             selectedClient={selectedClient}
           />
-        {/* </div> */}
+        </div>
       </div>
     </div>
     

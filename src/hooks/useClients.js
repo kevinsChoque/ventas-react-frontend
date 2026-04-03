@@ -7,16 +7,17 @@ export const useClients = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const [total, setTotal] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [perPage, setPerPage] = useState(6)
 
   useEffect(() => {
     fetchClients();
   }, []);
-  const fetchClients = async (page=1) => {
+  const fetchClients = async (page=1, perPage=6, search='') => {
     try {
       setLoading(true)
-      const response = await api.get(`/clients?page=${page}`)
+      const response = await api.get(`/clients?page=${page}&per_page=${perPage}&search=${search}`)
       setClients(response.data.data)
-
       setCurrentPage(response.data.current_page)
       setLastPage(response.data.last_page)
       setTotal(response.data.total)
@@ -37,7 +38,7 @@ export const useClients = () => {
     try {
       setLoading(true)
       await api.delete(`/clients/${id}`)
-      await fetchClients()
+      await fetchClients(currentPage, perPage, searchQuery);
     } 
     catch (error) {console.log('Error al eliminar cliente:', error);}
     finally {setLoading(false)}
@@ -46,7 +47,7 @@ export const useClients = () => {
     try{
       setLoading(true);
       await api.put(`/clients/${id}`, client);
-      await fetchClients(); // Refresca la lista después de actualizar un cliente
+      await fetchClients(currentPage, perPage, searchQuery); // Refresca la lista después de actualizar un cliente
     }
     catch (error) {console.log('Error al actualizar cliente:', error);}
     finally {setLoading(false);}
@@ -60,6 +61,10 @@ export const useClients = () => {
     currentPage,
     lastPage,
     total,
-    fetchClients
+    perPage,
+    setPerPage,
+    fetchClients,
+    searchQuery,
+    setSearchQuery
   };
 };
