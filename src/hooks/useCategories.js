@@ -7,16 +7,17 @@ export const useCategories = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const [total, setTotal] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [perPage, setPerPage] = useState(6)
 
   useEffect(() => {
     fetchCategories();
   }, []);
-  const fetchCategories = async (page=1) => {
+  const fetchCategories = async (page=1, perPage=6, search='') => {
     try {
       setLoading(true)
-      const response = await api.get(`/categories?page=${page}`)
+      const response = await api.get(`/categories?page=${page}&per_page=${perPage}&search=${search}`)
       setCategories(response.data.data)
-
       setCurrentPage(response.data.current_page)
       setLastPage(response.data.last_page)
       setTotal(response.data.total)
@@ -37,7 +38,7 @@ export const useCategories = () => {
     try {
       setLoading(true)
       await api.delete(`/categories/${id}`)
-      await fetchCategories()
+      await fetchCategories(currentPage, perPage, searchQuery);
     } 
     catch (error) {console.log('Error al eliminar categoría:', error);}
     finally {setLoading(false)}
@@ -46,7 +47,7 @@ export const useCategories = () => {
     try{
       setLoading(true);
       await api.put(`/categories/${id}`, category);
-      await fetchCategories(); // Refresca la lista después de actualizar una categoría
+      await fetchCategories(currentPage, perPage, searchQuery); // Refresca la lista después de actualizar una categoría
     }
     catch (error) {console.log('Error al actualizar categoría:', error);}
     finally {setLoading(false);}
@@ -60,6 +61,10 @@ export const useCategories = () => {
     currentPage,
     lastPage,
     total,
-    fetchCategories
+    perPage,
+    setPerPage,
+    fetchCategories,
+    searchQuery,
+    setSearchQuery
   };
 };
