@@ -32,8 +32,8 @@ const BrandModal = ({ isOpen, onClose, createBrand, updateBrand, selectedBrand }
 
   const handleChange = (e) => {setForm({ ...form, [e.target.name]: e.target.value });}
   return (
-    <Modal show={isOpen} onHide={onClose} size='lg'>
-      <Modal.Header closeButton>
+    <Modal show={isOpen} onHide={onClose} size='lg' centered>
+      <Modal.Header closeButton className='p-2 modal-dialog-centered'>
         <Modal.Title>Agregar Nueva Marca</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -55,8 +55,8 @@ const BrandModal = ({ isOpen, onClose, createBrand, updateBrand, selectedBrand }
           </div>
         </Form>
       </Modal.Body>
-      <Modal.Footer>
-        <div className='d-flex justify-content-end gap-2 p-2 bg-white'>
+      <Modal.Footer className='p-1'>
+        <div className='d-flex justify-content-end gap-2 bg-white'>
           <Button variant="light" onClick={onClose}>
             Cancelar
           </Button>

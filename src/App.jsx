@@ -4,7 +4,7 @@ import './App.css';
 import Sidebar from './components/Sidebar';
 import Clients from './pages/clients/Clients';
 import Categories from './pages/categories/Categories';
-import Brands from './pages/brands/brands';
+import Brands from './pages/brands/Brands';
 import Navbar from './components/Navbar';
 
 import Login from './pages/auth/Login';

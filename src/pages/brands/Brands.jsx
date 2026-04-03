@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faTachometerAlt } from '@fortawesome/free-solid-svg-icons'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import BrandTable from '../../components/brands/BrandTable';
 import BrandModal from '../../components/brands/BrandModal';
 import FullScreenLoader from '../../components/FullScreenLoader';
@@ -19,7 +19,9 @@ const Brands = () => {
     total,
     fetchBrands,
     perPage,
-    setPerPage
+    setPerPage,
+    searchQuery,
+    setSearchQuery
    } = useBrands();
   
   const [showModal, setShowModal] = useState(false)
@@ -37,7 +39,10 @@ const Brands = () => {
     <>
     <div className="d-flex align-items-center justify-content-between bg-body-secondary p-2 border-bottom">
       <div className="d-flex align-items-center gap-1">
-        <span className="fw-semibold text-sidebar" style={{ color: '#3b4055' }}><FontAwesomeIcon icon={faTachometerAlt} /> Marcas</span>
+        <span className="fw-semibold text-sidebar" style={{ color: '#3b4055' }}>
+          {/* <FontAwesomeIcon icon={faTachometerAlt} />  */}
+          Marcas
+        </span>
       </div>
       <div className="d-flex gap-2">
         {/* <button className="btn btn-primary btn-sm fw-semibold px-3 d-flex align-items-center" onClick={handleNew}>          
@@ -47,7 +52,7 @@ const Brands = () => {
           <FontAwesomeIcon icon={faFileImport} className="me-1"/> Importar
         </button> */}
         <button className="btn btn-primary btn-sm fw-semibold px-3 d-flex align-items-center" onClick={handleNew}>          
-          <FontAwesomeIcon icon={faPlus} className="me-1"/> Nueva
+          <FontAwesomeIcon icon={faPlusCircle} className="me-1"/> Nueva
         </button>
       </div>
     </div>
@@ -55,16 +60,10 @@ const Brands = () => {
       <div className="card shadow-lg border-0">
         <div className="card-header bg-primary text-white border-0 mb-3">
           <div className="d-flex justify-content-between align-items-center">
-            <h3 className="mb-0" style={{fontSize: '1.6em', fontWeight: 300, letterSpacing: 'normal', lineHeight: '24px'}}>Listado de Marcas</h3>
-            {/* <button 
-              className="btn btn-info btn-sm" 
-              onClick={handleNew}>          
-              <FontAwesomeIcon icon={faPlus} className="me-1" />
-              Nueva
-            </button> */}
+            <h3 className="mb-0" style={{fontSize: '1.3em', fontWeight: 300, letterSpacing: 'normal', lineHeight: '24px'}}>Listado de Marcas</h3>
           </div>
         </div>
-        {/* <div className="card-body px-1"> */}
+        <div className="card-body p-0">
             <FullScreenLoader show={loading} />
             <div className="table-responsive">
               <BrandTable 
@@ -77,6 +76,8 @@ const Brands = () => {
                 fetchBrands={fetchBrands}
                 perPage={perPage}
                 setPerPage={setPerPage}
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
                 />
               {/* <Pagination
                 currentPage={currentPage}
@@ -85,7 +86,6 @@ const Brands = () => {
                 fetchClients={fetchBrands}
               /> */}
             </div>
-            {/* modal */}
             <BrandModal
               isOpen={showModal}
               onClose={() => setShowModal(false)}
@@ -93,7 +93,7 @@ const Brands = () => {
               updateBrand={updateBrand}
               selectedBrand={selectedBrand}
             />
-        {/* </div> */}
+        </div>
       </div>
     </div>
     </>

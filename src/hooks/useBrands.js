@@ -7,18 +7,17 @@ export const useBrands = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const [total, setTotal] = useState(0);
-
+  const [searchQuery, setSearchQuery] = useState('');
   const [perPage, setPerPage] = useState(6)
 
   useEffect(() => {
     fetchBrands();
   }, []);
-  const fetchBrands = async (page=1, perPage=6) => {
+  const fetchBrands = async (page=1, perPage=6, search='') => {
     try {
       setLoading(true)
-      const response = await api.get(`/brands?page=${page}&per_page=${perPage}`)
+      const response = await api.get(`/brands?page=${page}&per_page=${perPage}&search=${search}`)
       setBrands(response.data.data)
-
       setCurrentPage(response.data.current_page)
       setLastPage(response.data.last_page)
       setTotal(response.data.total)
@@ -39,7 +38,7 @@ export const useBrands = () => {
     try {
       setLoading(true)
       await api.delete(`/brands/${id}`)
-      await fetchBrands(currentPage, perPage)
+      await fetchBrands(currentPage, perPage, searchQuery);
     } 
     catch (error) {console.log('Error al eliminar marca:', error);}
     finally {setLoading(false)}
@@ -48,7 +47,7 @@ export const useBrands = () => {
     try{
       setLoading(true);
       await api.put(`/brands/${id}`, brand);
-      await fetchBrands(currentPage, perPage); // Refresca la lista después de actualizar una marca
+      await fetchBrands(currentPage, perPage, searchQuery); // Refresca la lista después de actualizar una marca
     }
     catch (error) {console.log('Error al actualizar marca:', error);}
     finally {setLoading(false);}
@@ -64,6 +63,8 @@ export const useBrands = () => {
     total,
     perPage,
     setPerPage,
-    fetchBrands
+    fetchBrands,
+    searchQuery,
+    setSearchQuery
   };
 };
