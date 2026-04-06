@@ -6,6 +6,7 @@ import CategoryAutocomplete from './CategoryAutocompletre';
 import AsyncSelect from 'react-select/async';
 import { useBrands } from '../../hooks/useBrands';
 import { useCategories } from '../../hooks/useCategories';
+import { successAlert, errorAlert } from '../../helper/alerts';
 
 const ProductModal = ({ show, handleClose, createProduct, updateProduct, selectedProduct, units }) => {
   const { createBrandWithResponse } = useBrands();
@@ -58,8 +59,10 @@ const ProductModal = ({ show, handleClose, createProduct, updateProduct, selecte
       else {await createProduct(form)}
       setForm({ unit_id:'', unit_name: '', name: '', price: '', stock:'', brand_id: '', brand_name: '', category_id: '', category_name: '' });
       handleClose()
+      successAlert(`Producto ${selectedProduct ? 'actualizado' : 'creado'} exitosamente`);
     } catch (error) {
       console.log('Error al agregar producto:', error);
+      errorAlert(`Error al ${selectedProduct ? 'actualizar' : 'crear'} el producto`);
     }
   };
   const handleChange = (e) => {
@@ -72,7 +75,7 @@ const ProductModal = ({ show, handleClose, createProduct, updateProduct, selecte
       try {
         const res = await createCategoryWithResponse({ name: newCategoryName });
         if(!res || !res.id) {
-          alert('Categoría creada pero no se recibió el ID. Es posible que debas refrescar la página para verla en la lista.');
+          errorAlert('Categoría creada pero no se recibió el ID. Es posible que debas refrescar la página para verla en la lista.');
         }
         else {
           setForm(f => ({ ...f, category_id: res.id, category_name: res.name }));
@@ -80,7 +83,7 @@ const ProductModal = ({ show, handleClose, createProduct, updateProduct, selecte
         setCreatingCategory(false);
         setNewCategoryName('');
       } catch (err) {
-        alert('Error al crear la categoría');
+        errorAlert('Error al crear la categoría');
       }
     };
   const handleSaveBrand = async () => {
@@ -88,7 +91,7 @@ const ProductModal = ({ show, handleClose, createProduct, updateProduct, selecte
     try {
       const res = await createBrandWithResponse({ name: newBrandName });
       if(!res || !res.id) {
-        alert('Marca creada pero no se recibió el ID. Es posible que debas refrescar la página para verla en la lista.');
+        errorAlert('Marca creada pero no se recibió el ID. Es posible que debas refrescar la página para verla en la lista.');
       }
       else {
         setForm(f => ({ ...f, brand_id: res.id, brand_name: res.name }));
@@ -96,7 +99,7 @@ const ProductModal = ({ show, handleClose, createProduct, updateProduct, selecte
       setCreatingBrand(false);
       setNewBrandName('');
     } catch (err) {
-      alert('Error al crear la marca');
+      errorAlert('Error al crear la marca');
     }
   };
 

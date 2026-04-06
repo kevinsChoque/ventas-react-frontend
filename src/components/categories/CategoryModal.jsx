@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { validateCategory } from '../../validators/categoryValidator';
+import { successAlert, errorAlert } from '../../helper/alerts';
 
 const CategoryModal = ({ isOpen, onClose, createCategory, updateCategory, selectedCategory }) => {
   const [form, setForm] = useState({name: ''});
@@ -27,7 +28,11 @@ const CategoryModal = ({ isOpen, onClose, createCategory, updateCategory, select
       setForm({name: ''});
       setErrors({})
       onClose();
-    } catch (error) {console.log('Error al agregar categoría:', error);}
+      successAlert(`Categoría ${selectedCategory ? 'actualizada' : 'creada'} exitosamente`);
+    } catch (error) {
+      console.log('Error al agregar categoría:', error);
+      errorAlert(`Error al ${selectedCategory ? 'actualizar' : 'crear'} la categoría`);
+    }
   }
 
   const handleChange = (e) => {setForm({ ...form, [e.target.name]: e.target.value });}

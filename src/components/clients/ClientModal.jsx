@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { validateClient } from '../../validators/clientValidator';
+import { successAlert, errorAlert } from '../../helper/alerts';
 
 const ClientModal = ({ isOpen, onClose, createClient, updateClient, selectedClient }) => {
   const [form, setForm] = useState({
@@ -39,7 +40,11 @@ const ClientModal = ({ isOpen, onClose, createClient, updateClient, selectedClie
       setForm({document_type: '',document_number: '',name: '',phone: '',address: ''});
       setErrors({})
       onClose();
-    } catch (error) {console.log('Error al agregar cliente:', error);}
+      successAlert(`Cliente ${selectedClient ? 'actualizado' : 'creado'} exitosamente`);
+    } catch (error) {
+      console.log('Error al agregar cliente:', error);
+      errorAlert(`Error al ${selectedClient ? 'actualizar' : 'crear'} el cliente`);
+    }
   }
 
   const handleChange = (e) => {setForm({ ...form, [e.target.name]: e.target.value });}

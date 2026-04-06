@@ -1,17 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { validateBrand } from '../../validators/brandValidator';
+import { successAlert, errorAlert } from '../../helper/alerts';
 
 const BrandModal = ({ isOpen, onClose, createBrand, updateBrand, selectedBrand }) => {
   const [form, setForm] = useState({name: ''});
   const [errors, setErrors] = useState({})
   
   useEffect(() => {
-    if (selectedBrand) {
-      setForm({name: selectedBrand.name || ''});
-    }
-    else 
-    {setForm({name: ''});}
+    if (selectedBrand) {setForm({name: selectedBrand.name || ''});}
+    else {setForm({name: ''});}
   }, [selectedBrand]);
 
   const handleSubmit = async (e) => {
@@ -27,7 +25,11 @@ const BrandModal = ({ isOpen, onClose, createBrand, updateBrand, selectedBrand }
       setForm({name: ''});
       setErrors({})
       onClose();
-    } catch (error) {console.log('Error al agregar marca:', error);}
+      successAlert(`Marca ${selectedBrand ? 'actualizada' : 'creada'} exitosamente`);
+    } catch (error) {
+      console.log('Error al agregar marca:', error);
+      errorAlert(`Error al ${selectedBrand ? 'actualizar' : 'crear'} la marca`);
+    }
   }
 
   const handleChange = (e) => {setForm({ ...form, [e.target.name]: e.target.value });}
