@@ -34,6 +34,18 @@ export const useCategories = () => {
     catch (error) {console.log('Error al agregar categoría:', error);}  
     finally {setLoading(false);} 
   };
+
+  // Igual que createBrandWithResponse, pero para categoría
+  const createCategoryWithResponse = async (category) => {
+    try {
+      setLoading(true);
+      const response = await api.post('/categories', category);
+      await fetchCategories();
+      return response.data;
+    } 
+    catch (error) {console.log('Error al agregar categoría:', error);} 
+    finally {setLoading(false);}
+  };
   const deleteCategory = async (id) => {
     try {
       setLoading(true)
@@ -55,6 +67,7 @@ export const useCategories = () => {
   return { 
     categories, 
     createCategory, 
+    createCategoryWithResponse,
     deleteCategory, 
     updateCategory, 
     loading,

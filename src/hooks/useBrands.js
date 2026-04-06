@@ -34,6 +34,16 @@ export const useBrands = () => {
     catch (error) {console.log('Error al agregar marca:', error);}  
     finally {setLoading(false);} 
   };
+  const createBrandWithResponse = async (brand) => {
+    try {
+      setLoading(true);
+      const response = await api.post('/brands', brand); // Usando la instancia de axios configurada
+      await fetchBrands(); // Refresca la lista después de crear una marca
+      return response.data; // Devuelve la respuesta completa para obtener el ID
+    }
+    catch (error) {console.log('Error al agregar marca:', error);}  
+    finally {setLoading(false);}
+  };
   const deleteBrand = async (id) => {
     try {
       setLoading(true)
@@ -55,6 +65,7 @@ export const useBrands = () => {
   return { 
     brands, 
     createBrand, 
+    createBrandWithResponse,
     deleteBrand, 
     updateBrand, 
     loading,
