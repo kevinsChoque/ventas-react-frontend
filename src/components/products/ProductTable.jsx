@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
-import { confirmDelete, successAlert } from '../../helper/alerts';
+import { confirmDelete } from '../../helper/alerts';
 import DataTableImport from 'react-data-table-component';
+import { useNotify } from '../../helper/useNotify';
 
 const ProductTable = ({
   products, onDelete, onEdit,
@@ -9,11 +10,14 @@ const ProductTable = ({
   fetchProducts, perPage, setPerPage,
   searchQuery, setSearchQuery }) => {
 
+  const notify = useNotify();
+
   const handleDelete = async (id) => {
     const result = await confirmDelete();
     if (result.isConfirmed) {
       await onDelete(id);
-      successAlert("Producto eliminado");
+      // successAlert("Producto eliminado");
+      notify("Producto eliminado", { variant: 'success' });
     }
   };
 
