@@ -29,7 +29,7 @@ export const useProducts = () => {
     try {
       setLoading(true);
       const response = await api.get(`/products?page=${page}&per_page=${perPage}&search=${search}`);
-      console.log(response.data.data)
+      // console.log(response.data.data)
       setProducts(response.data.data);
       setCurrentPage(response.data.current_page);
       setLastPage(response.data.last_page);
@@ -65,10 +65,10 @@ export const useProducts = () => {
 
   const updateProduct = async (id, product) => {
     try {
-      console.log('Enviando actualización para producto ID:', id, 'con datos:', product);
+      // console.log('Enviando actualización para producto ID:', id, 'con datos:', product);
       setLoading(true);
       const response = await api.put(`/products/${id}`, product);
-      console.log('Respuesta al actualizar producto:', response.data);
+      // console.log('Respuesta al actualizar producto:', response.data);
       await fetchProducts(currentPage, perPage, searchQuery);
     }
     catch (error) { console.log('Error al actualizar producto:', error); }

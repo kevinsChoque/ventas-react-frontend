@@ -6,10 +6,8 @@ import CategoryAutocomplete from './CategoryAutocomplete';
 import AsyncSelect from 'react-select/async';
 import { useBrands } from '../../hooks/useBrands';
 import { useCategories } from '../../hooks/useCategories';
-import { successAlert, errorAlert } from '../../helper/alerts';
-
-
-
+import { errorAlert } from '../../helper/alerts';
+import { useNotify } from '../../helper/useNotify';
 
 const ProductModal = ({ show, onClose, createProduct, updateProduct, selectedProduct, units }) => {
   const { createBrandWithResponse } = useBrands();
@@ -18,6 +16,7 @@ const ProductModal = ({ show, onClose, createProduct, updateProduct, selectedPro
   const [newBrandName, setNewBrandName] = useState('');
   const [creatingCategory, setCreatingCategory] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState('');
+  const notify = useNotify();
   const [form, setForm] = useState({ 
     unit_id:'', // solo el id
     unit_name: '', // para mostrar el nombre en el select
@@ -60,7 +59,7 @@ const ProductModal = ({ show, onClose, createProduct, updateProduct, selectedPro
       else {await createProduct(form);}
       setForm({ unit_id:'', unit_name: '', name: '', price: '', stock:'', brand_id: '', brand_name: '', category_id: '', category_name: '' });
       onClose()
-      successAlert(`Producto ${selectedProduct ? 'actualizado' : 'creado'} exitosamente`);
+      notify(`Producto ${selectedProduct ? 'actualizado' : 'creado'} exitosamente`, { variant: 'success' });
     } catch (error) {
       console.log('Error al agregar producto:', error);
       errorAlert(`Error al ${selectedProduct ? 'actualizar' : 'crear'} el producto`);
@@ -96,6 +95,7 @@ const ProductModal = ({ show, onClose, createProduct, updateProduct, selectedPro
       }
       else {
         setForm(f => ({ ...f, brand_id: res.id, brand_name: res.name }));
+
       }
       setCreatingBrand(false);
       setNewBrandName('');
