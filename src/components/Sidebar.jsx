@@ -138,6 +138,22 @@ const Sidebar = () => {
               {isExpanded && <span className="ms-2 text-sidebar">Home</span>}
             </Link>
           </li>
+          <li>
+            <Link 
+              className={`nav-link text-white d-flex align-items-center ${isExpanded ? '' : 'justify-content-center'} ${location.pathname === "/test" ? "active" : "kev"}`}
+              style={{
+                minHeight: '44px',
+                borderRadius: '10px',
+                padding: isExpanded ? '10px 12px' : '10px 0'
+              }}
+              to="/test"
+            >
+              <span className="d-inline-flex align-items-center justify-content-center" style={{ width: '20px' }}>
+                <FontAwesomeIcon icon={faHouse} />
+              </span>
+              {isExpanded && <span className="ms-2 text-sidebar">test</span>}
+            </Link>
+          </li>
 
           {/* PRODUCTOS */}
           <li className="nav-item">

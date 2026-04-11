@@ -6,9 +6,20 @@ import Clients from './pages/clients/Clients';
 import Categories from './pages/categories/Categories';
 import Brands from './pages/brands/Brands';
 import Navbar from './components/Navbar';
-
 import Login from './pages/auth/Login';
+import Home from './pages/Home';
+import Test from './pages/Test';
 
+// const Home = () => (
+//   <div className="card">
+//     <div className="card-body">
+//       <h1 className="card-title h3">Bienvenido al Sistema de Ventas</h1>
+//       <p className="card-text">
+//         Usa el sidebar para navegar.
+//       </p>
+//     </div>
+//   </div>
+// );
 function App() {
   const location = useLocation();
   const isLogin = location.pathname === '/login';
@@ -44,7 +55,15 @@ function App() {
                   <Route path="/" element={<Navigate to="/login" />} />
                   {/* <Route path="/products" element={<Products />} />
                   <Route path="/clients" element={<Clients />} /> */}
-                  <Route path="/home" element={<Home />} />
+                  {/* <Route path="/test" element={<Test />} /> */}
+                  <Route
+                    path="/home"
+                    element={isAuth ? <Home /> : <Navigate to="/login" />}
+                  />
+                  <Route 
+                    path="/test" 
+                    element={isAuth ? <Test /> : <Navigate to="/login" />} 
+                  />
                   <Route
                     path="/clients"
                     element={isAuth ? <Clients /> : <Navigate to="/login" />}
@@ -65,21 +84,13 @@ function App() {
             //   </div>
             // </div>
           )}
+          
         {/* </div> */}
       </div>
     </div>
   );
 }
 
-const Home = () => (
-  <div className="card">
-    <div className="card-body">
-      <h1 className="card-title h3">Bienvenido al Sistema de Ventas</h1>
-      <p className="card-text">
-        Usa el sidebar para navegar.
-      </p>
-    </div>
-  </div>
-);
+
 
 export default App;
