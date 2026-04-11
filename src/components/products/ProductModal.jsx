@@ -2,13 +2,16 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { validateProduct } from '../../validators/productValidator';
 import BrandAutocomplete from './BrandAutocomplete';
-import CategoryAutocomplete from './CategoryAutocompletre';
+import CategoryAutocomplete from './CategoryAutocomplete';
 import AsyncSelect from 'react-select/async';
 import { useBrands } from '../../hooks/useBrands';
 import { useCategories } from '../../hooks/useCategories';
 import { successAlert, errorAlert } from '../../helper/alerts';
 
-const ProductModal = ({ show, handleClose, createProduct, updateProduct, selectedProduct, units }) => {
+
+
+
+const ProductModal = ({ show, onClose, createProduct, updateProduct, selectedProduct, units }) => {
   const { createBrandWithResponse } = useBrands();
   const { createCategoryWithResponse } = useCategories();
   const [creatingBrand, setCreatingBrand] = useState(false);
@@ -47,18 +50,16 @@ const ProductModal = ({ show, handleClose, createProduct, updateProduct, selecte
   }, [selectedProduct]);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Al enviar, extrae solo el id de la marca
-    // const toValidate = { ...form, brand_id: form.brand_id ? form.brand_id.value : '' };
     const validationErrors = validateProduct(form);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
     try {
-      if(selectedProduct) {console.log('send update: ', form);await updateProduct(selectedProduct.id, form)}
-      else {await createProduct(form)}
+      if(selectedProduct) {await updateProduct(selectedProduct.id, form);}
+      else {await createProduct(form);}
       setForm({ unit_id:'', unit_name: '', name: '', price: '', stock:'', brand_id: '', brand_name: '', category_id: '', category_name: '' });
-      handleClose()
+      onClose()
       successAlert(`Producto ${selectedProduct ? 'actualizado' : 'creado'} exitosamente`);
     } catch (error) {
       console.log('Error al agregar producto:', error);
@@ -104,7 +105,8 @@ const ProductModal = ({ show, handleClose, createProduct, updateProduct, selecte
   };
 
   return(
-    <Modal show={show} onHide={handleClose} size='lg' centered>
+    <Modal show={show} onHide={onClose} size='lg' centered>
+      
       <Modal.Header closeButton className='p-2'>
         <Modal.Title>{selectedProduct ? 'Editar Producto' : 'Agregar Nuevo Producto'}</Modal.Title>
       </Modal.Header>
@@ -271,7 +273,7 @@ const ProductModal = ({ show, handleClose, createProduct, updateProduct, selecte
       </Modal.Body>
       <Modal.Footer className='p-1'>
         <div className='d-flex justify-content-end gap-2 bg-white'>
-          <Button variant="light" onClick={handleClose}>
+          <Button variant="light" onClick={onClose}>
             Cancelar
           </Button>
           <Button variant="primary" form='formProduct' type='submit'>

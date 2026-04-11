@@ -80,7 +80,7 @@ const Products = () => {
             </div>
             <ProductModal
               show={showModal}
-              handleClose={() => setShowModal(false)}
+              onClose={() => setShowModal(false)}
               createProduct={createProduct}
               updateProduct={updateProduct}
               selectedProduct={selectedProduct}
