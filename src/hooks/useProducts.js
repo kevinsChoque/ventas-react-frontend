@@ -44,7 +44,11 @@ export const useProducts = () => {
   const createProduct = async (product) => {
     try {
       setLoading(true);
-      await api.post('/products', product);
+      let config = {};
+      if (product instanceof FormData) {
+        config.headers = { 'Content-Type': 'multipart/form-data' };
+      }
+      await api.post('/products', product, config);
       await fetchProducts();
     }
     catch (error) { console.log('Error al agregar producto:', error); }
