@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faEdit, faClockRotateLeft } from '@fortawesome/free-solid-svg-icons'
 import { confirmDelete } from '../../helper/alerts';
 import DataTableImport from 'react-data-table-component';
 import { useNotify } from '../../helper/useNotify';
@@ -46,6 +46,26 @@ const ProductTable = ({
       name: "Nombre",
       selector: row => row.name,
       grow: 2,
+    },
+    {
+      name: "Historial",
+      cell: row => (
+        // <div className="d-flex justify-content-center">
+          <button
+            className="btn btn-outline-info btn-sm border-0 d-flex align-items-center gap-2 shadow-sm"
+            style={{ transition: 'transform 0.2s', fontWeight: 500 }}
+            title="Ver historial de movimientos"
+            onMouseOver={e => e.currentTarget.style.transform = 'scale(1.08)'}
+            onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+          >
+            <FontAwesomeIcon icon={faClockRotateLeft} style={{ fontSize: '1.1rem' }} />
+            {/* <span>Historial</span> */}
+          </button>
+        // </div>
+      ),
+      // center: true,
+      // grow: 0,
+      // width: '130px',
     },
     {
       name: "Precio",
