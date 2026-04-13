@@ -13,7 +13,9 @@ import {
   faLayerGroup,
   faAnglesLeft,
   faAnglesRight,
-  faStore
+  faStore,
+  faFileInvoice,
+  faReceipt
 } from '@fortawesome/free-solid-svg-icons';
 
 const Sidebar = () => {
@@ -35,8 +37,6 @@ const Sidebar = () => {
       }
     );
   });
-  
-
   // 🔄 Guardar en localStorage
   useEffect(() => {
     localStorage.setItem("openMenus", JSON.stringify(openMenus));
@@ -133,11 +133,7 @@ const Sidebar = () => {
           <li>
             <Link 
               className={`nav-link text-white d-flex align-items-center ${isExpanded ? '' : 'justify-content-center'} ${location.pathname === "/home" ? "active" : "kev"}`}
-              style={{
-                minHeight: '44px',
-                borderRadius: '10px',
-                padding: isExpanded ? '10px 12px' : '10px 0'
-              }}
+              style={{minHeight: '44px',borderRadius: '10px',padding: isExpanded ? '10px 12px' : '10px 0'}}
               to="/home"
             >
               <span className="d-inline-flex align-items-center justify-content-center" style={{ width: '20px' }}>
@@ -149,11 +145,7 @@ const Sidebar = () => {
           <li>
             <Link 
               className={`nav-link text-white d-flex align-items-center ${isExpanded ? '' : 'justify-content-center'} ${location.pathname === "/test" ? "active" : "kev"}`}
-              style={{
-                minHeight: '44px',
-                borderRadius: '10px',
-                padding: isExpanded ? '10px 12px' : '10px 0'
-              }}
+              style={{minHeight: '44px',borderRadius: '10px',padding: isExpanded ? '10px 12px' : '10px 0'}}
               to="/test"
             >
               <span className="d-inline-flex align-items-center justify-content-center" style={{ width: '20px' }}>
@@ -167,19 +159,14 @@ const Sidebar = () => {
             <button
               className={`nav-link text-white w-100 d-flex align-items-center ${isExpanded ? 'text-start justify-content-between' : 'justify-content-center'}`}
               onClick={() => setOpenMenus((prev) => ({ ...prev, ventas: !prev.ventas }))}
-              style={{
-                minHeight: '44px',
-                borderRadius: '10px',
-                padding: isExpanded ? '10px 12px' : '10px 0',
-              }}
+              style={{minHeight: '44px',borderRadius: '10px',padding: isExpanded ? '10px 12px' : '10px 0'}}
             >
               <span className="d-flex align-items-center">
                 <span className="d-inline-flex align-items-center justify-content-center" style={{ width: '20px' }}>
-                  <FontAwesomeIcon icon={faBox} />
+                  <FontAwesomeIcon icon={faFileInvoice} />
                 </span>
                 {isExpanded && <span className="ms-2">Ventas</span>}
               </span>
-
               {isExpanded && (
                 <FontAwesomeIcon icon={openMenus.ventas ? faChevronUp : faChevronDown} />
               )}
@@ -196,14 +183,10 @@ const Sidebar = () => {
                 <li>
                   <Link to="/electronic-invoice"
                     className={`nav-link text-white d-flex align-items-center ${location.pathname.startsWith("/electronic-invoice") ? "active" : ""}`}
-                    style={{
-                      minHeight: '40px',
-                      borderRadius: '10px',
-                      padding: '8px 12px'
-                    }}
+                    style={{minHeight: '40px',borderRadius: '10px',padding: '8px 12px'}}
                   >
                     <span className="d-inline-flex align-items-center justify-content-center" style={{ width: '20px' }}>
-                      <FontAwesomeIcon icon={faBox} />
+                      <FontAwesomeIcon icon={faFileInvoice} />
                     </span>
                     {isExpanded && <span className="ms-2">Comprobante electrónico</span>}
                   </Link>
@@ -211,14 +194,10 @@ const Sidebar = () => {
                 <li>
                   <Link to="/invoice-list"
                     className={`nav-link text-white d-flex align-items-center ${location.pathname.startsWith("/invoice-list") ? "active" : ""}`}
-                    style={{
-                      minHeight: '40px',
-                      borderRadius: '10px',
-                      padding: '8px 12px'
-                    }}
+                    style={{minHeight: '40px',borderRadius: '10px',padding: '8px 12px'}}
                   >
                     <span className="d-inline-flex align-items-center justify-content-center" style={{ width: '20px' }}>
-                      <FontAwesomeIcon icon={faLayerGroup} />
+                      <FontAwesomeIcon icon={faReceipt} />
                     </span>
                     {isExpanded && <span className="ms-2">Listado de comprobantes</span>}
                   </Link>
@@ -231,11 +210,7 @@ const Sidebar = () => {
             <button
               className={`nav-link text-white w-100 d-flex align-items-center ${isExpanded ? 'text-start justify-content-between' : 'justify-content-center'}`}
               onClick={() => setOpenMenus((prev) => ({ ...prev, modulos: !prev.modulos }))}
-              style={{
-                minHeight: '44px',
-                borderRadius: '10px',
-                padding: isExpanded ? '10px 12px' : '10px 0',
-              }}
+              style={{minHeight: '44px',borderRadius: '10px',padding: isExpanded ? '10px 12px' : '10px 0'}}
             >
               <span className="d-flex align-items-center">
                 <span className="d-inline-flex align-items-center justify-content-center" style={{ width: '20px' }}>
@@ -243,12 +218,10 @@ const Sidebar = () => {
                 </span>
                 {isExpanded && <span className="ms-2">Modulos</span>}
               </span>
-
               {isExpanded && (
                 <FontAwesomeIcon icon={openMenus.modulos ? faChevronUp : faChevronDown} />
               )}
             </button>
-
             {/* 🔥 ANIMACIÓN SUAVE */}
             <div
               style={{
@@ -261,12 +234,7 @@ const Sidebar = () => {
                 <li>
                   <Link to="/products" 
                     className={`nav-link text-white d-flex align-items-center ${location.pathname.startsWith("/products") ? "active" : ""}`}
-                    style={{
-                      minHeight: '40px',
-                      borderRadius: '10px',
-                      padding: '8px 12px'
-                    }}
-                    >
+                    style={{minHeight: '40px',borderRadius: '10px',padding: '8px 12px'}}>
                     <span className="d-inline-flex align-items-center justify-content-center" style={{ width: '20px' }}>
                       <FontAwesomeIcon icon={faBox} />
                     </span>
@@ -277,37 +245,26 @@ const Sidebar = () => {
                 <li>
                   <Link to="/categories" 
                     className={`nav-link text-white d-flex align-items-center ${location.pathname.startsWith("/categories") ? "active" : ""}`}
-                    style={{
-                      minHeight: '40px',
-                      borderRadius: '10px',
-                      padding: '8px 12px'
-                    }}>
+                    style={{minHeight: '40px',borderRadius: '10px',padding: '8px 12px'}}>
                     <span className="d-inline-flex align-items-center justify-content-center" style={{ width: '20px' }}>
                       <FontAwesomeIcon icon={faLayerGroup} />
                     </span>
                     {isExpanded && <span className="ms-2">Categorías</span>}
                   </Link>
                 </li>
-
                 <li>
                   <Link to="/brands" 
                     className={`nav-link text-white d-flex align-items-center ${location.pathname.startsWith("/brands") ? "active" : ""}`}
-                    style={{
-                      minHeight: '40px',
-                      borderRadius: '10px',
-                      padding: '8px 12px'
-                    }}>
+                    style={{minHeight: '40px',borderRadius: '10px',padding: '8px 12px'}}>
                     <span className="d-inline-flex align-items-center justify-content-center" style={{ width: '20px' }}>
                       <FontAwesomeIcon icon={faTags} />
                     </span>
                     {isExpanded && <span className="ms-2">Marcas</span>}
                   </Link>
                 </li>
-
               </ul>
             </div>
           </li>
-
           {/* CLIENTES */}
           <li>
             <Link 
