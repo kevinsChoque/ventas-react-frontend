@@ -32,17 +32,27 @@ const ProductModal = ({ show, onClose, createProduct, updateProduct, selectedPro
   });
   
   const [preview, setPreview] = useState(null);
-      const fileInputRef = useRef();
-      // Actualiza la previsualización cuando se selecciona una imagen
-      useEffect(() => {
-        if (form.image) {
-          const reader = new FileReader();
-          reader.onloadend = () => setPreview(reader.result);
-          reader.readAsDataURL(form.image);
-        } else {
-          setPreview(null);
-        }
-      }, [form.image]);
+  const [originalImage, setOriginalImage] = useState(null); // Para guardar la imagen original
+  const fileInputRef = useRef();
+  // Actualiza la previsualización cuando se selecciona una imagen
+  useEffect(() => {
+    if (form.image) {
+      const reader = new FileReader();
+      reader.onloadend = () => setPreview(reader.result);
+      reader.readAsDataURL(form.image);
+    } else {
+      setPreview(null);
+    }
+  }, [form.image]);
+
+  // Cuando cambia el producto seleccionado, setea la imagen original
+  useEffect(() => {
+    if (selectedProduct && selectedProduct.image) {
+      setOriginalImage(selectedProduct.image);
+    } else {
+      setOriginalImage(null);
+    }
+  }, [selectedProduct]);
   
   const [errors, setErrors] = useState({});
   // console.log('Selected product changed:', selectedProduct);
@@ -60,12 +70,14 @@ const ProductModal = ({ show, onClose, createProduct, updateProduct, selectedPro
         category_name: selectedProduct.category?.name || '',
         image: null // no cargamos la imagen al editar, solo previsualizamos si el usuario selecciona una nueva
       });
+      setPreview(null); // Limpiar preview al abrir modal de edición
     } else {
       setForm({ 
         unit_id:'', unit_name: '', name: '', 
         price: '', stock:'', brand_id: '', 
         brand_name: '', category_id: '', category_name: '', 
         image: null });
+      setPreview(null);
     }
   }, [selectedProduct]);
   const handleSubmit = async (e) => {
@@ -238,6 +250,8 @@ const ProductModal = ({ show, onClose, createProduct, updateProduct, selectedPro
                     >
                       {preview ? (
                         <img src={preview} alt="preview" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', borderRadius: 6 }} />
+                      ) : originalImage ? (
+                        <img src={originalImage} alt="actual" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', borderRadius: 6, opacity: 0.7 }} />
                       ) : (
                         <span style={{ color: '#bfc3c9', fontSize: 48, lineHeight: 1 }}>
                           +

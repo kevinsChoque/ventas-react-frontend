@@ -69,10 +69,17 @@ export const useProducts = () => {
 
   const updateProduct = async (id, product) => {
     try {
-      // console.log('Enviando actualización para producto ID:', id, 'con datos:', product);
       setLoading(true);
-      const response = await api.put(`/products/${id}`, product);
-      // console.log('Respuesta al actualizar producto:', response.data);
+      let config = {};
+      let dataToSend = product;
+      // Si es FormData, usar POST y _method=PUT para Laravel
+      if (product instanceof FormData) {
+        product.append('_method', 'PUT');
+        config.headers = { 'Content-Type': 'multipart/form-data' };
+        await api.post(`/products/${id}`, product, config);
+      } else {
+        await api.put(`/products/${id}`, product);
+      }
       await fetchProducts(currentPage, perPage, searchQuery);
     }
     catch (error) { console.log('Error al actualizar producto:', error); }
