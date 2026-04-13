@@ -1,7 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import api from "../services/api";
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faHouse, 
@@ -19,26 +18,29 @@ import {
 
 const Sidebar = () => {
   const location = useLocation();
-
-  // 🔥 Estado del dropdown
-  const [openMenu, setOpenMenu] = useState(() => {
-    return JSON.parse(localStorage.getItem("openMenu")) || false;
-  });
-
+  // Hover temporal cuando esta colapsado
+  const [hoverExpanded, setHoverExpanded] = useState(false);
   // 🔥 Estado sidebar colapsado
   const [collapsed, setCollapsed] = useState(() => {
     return JSON.parse(localStorage.getItem("sidebarCollapsed")) || false;
   });
-
-  // Hover temporal cuando esta colapsado
-  const [hoverExpanded, setHoverExpanded] = useState(false);
-
   const isExpanded = !collapsed || hoverExpanded;
+
+  // 🔥 Estado de los dropdowns
+  const [openMenus, setOpenMenus] = useState(() => {
+    return (
+      JSON.parse(localStorage.getItem("openMenus")) || {
+        ventas: false,
+        modulos: false
+      }
+    );
+  });
+  
 
   // 🔄 Guardar en localStorage
   useEffect(() => {
-    localStorage.setItem("openMenu", JSON.stringify(openMenu));
-  }, [openMenu]);
+    localStorage.setItem("openMenus", JSON.stringify(openMenus));
+  }, [openMenus]);
 
   useEffect(() => {
     localStorage.setItem("sidebarCollapsed", JSON.stringify(collapsed));
@@ -51,7 +53,13 @@ const Sidebar = () => {
       location.pathname.startsWith("/categories") ||
       location.pathname.startsWith("/brands")
     ) {
-      setOpenMenu(true);
+      setOpenMenus((prev) => ({ ...prev, modulos: true }));
+    }
+    if (
+      location.pathname.startsWith("/electronic-invoice") ||
+      location.pathname.startsWith("/invoice-list")
+    ) {
+      setOpenMenus((prev) => ({ ...prev, ventas: true }));
     }
   }, [location.pathname]);
 
@@ -154,13 +162,75 @@ const Sidebar = () => {
               {isExpanded && <span className="ms-2 text-sidebar">test</span>}
             </Link>
           </li>
-
-          {/* PRODUCTOS */}
+          {/* VENTAS */}
           <li className="nav-item">
-
             <button
               className={`nav-link text-white w-100 d-flex align-items-center ${isExpanded ? 'text-start justify-content-between' : 'justify-content-center'}`}
-              onClick={() => setOpenMenu(!openMenu)}
+              onClick={() => setOpenMenus((prev) => ({ ...prev, ventas: !prev.ventas }))}
+              style={{
+                minHeight: '44px',
+                borderRadius: '10px',
+                padding: isExpanded ? '10px 12px' : '10px 0',
+              }}
+            >
+              <span className="d-flex align-items-center">
+                <span className="d-inline-flex align-items-center justify-content-center" style={{ width: '20px' }}>
+                  <FontAwesomeIcon icon={faBox} />
+                </span>
+                {isExpanded && <span className="ms-2">Ventas</span>}
+              </span>
+
+              {isExpanded && (
+                <FontAwesomeIcon icon={openMenus.ventas ? faChevronUp : faChevronDown} />
+              )}
+            </button>
+            {/* 🔥 ANIMACIÓN SUAVE */}
+            <div
+              style={{
+                maxHeight: openMenus.ventas && isExpanded ? '200px' : '0px',
+                overflow: 'hidden',
+                transition: 'max-height 0.3s ease'
+              }}
+            >
+              <ul className="nav flex-column ms-3">
+                <li>
+                  <Link to="/electronic-invoice"
+                    className={`nav-link text-white d-flex align-items-center ${location.pathname.startsWith("/electronic-invoice") ? "active" : ""}`}
+                    style={{
+                      minHeight: '40px',
+                      borderRadius: '10px',
+                      padding: '8px 12px'
+                    }}
+                  >
+                    <span className="d-inline-flex align-items-center justify-content-center" style={{ width: '20px' }}>
+                      <FontAwesomeIcon icon={faBox} />
+                    </span>
+                    {isExpanded && <span className="ms-2">Comprobante electrónico</span>}
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/invoice-list"
+                    className={`nav-link text-white d-flex align-items-center ${location.pathname.startsWith("/invoice-list") ? "active" : ""}`}
+                    style={{
+                      minHeight: '40px',
+                      borderRadius: '10px',
+                      padding: '8px 12px'
+                    }}
+                  >
+                    <span className="d-inline-flex align-items-center justify-content-center" style={{ width: '20px' }}>
+                      <FontAwesomeIcon icon={faLayerGroup} />
+                    </span>
+                    {isExpanded && <span className="ms-2">Listado de comprobantes</span>}
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </li>
+          {/* PRODUCTOS */}
+          <li className="nav-item">
+            <button
+              className={`nav-link text-white w-100 d-flex align-items-center ${isExpanded ? 'text-start justify-content-between' : 'justify-content-center'}`}
+              onClick={() => setOpenMenus((prev) => ({ ...prev, modulos: !prev.modulos }))}
               style={{
                 minHeight: '44px',
                 borderRadius: '10px',
@@ -175,20 +245,19 @@ const Sidebar = () => {
               </span>
 
               {isExpanded && (
-                <FontAwesomeIcon icon={openMenu ? faChevronUp : faChevronDown} />
+                <FontAwesomeIcon icon={openMenus.modulos ? faChevronUp : faChevronDown} />
               )}
             </button>
 
             {/* 🔥 ANIMACIÓN SUAVE */}
             <div
               style={{
-                maxHeight: openMenu && isExpanded ? '200px' : '0px',
+                maxHeight: openMenus.modulos && isExpanded ? '200px' : '0px',
                 overflow: 'hidden',
                 transition: 'max-height 0.3s ease'
               }}
             >
               <ul className="nav flex-column ms-3">
-
                 <li>
                   <Link to="/products" 
                     className={`nav-link text-white d-flex align-items-center ${location.pathname.startsWith("/products") ? "active" : ""}`}

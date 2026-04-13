@@ -1,6 +1,8 @@
 import {  Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import Products from './pages/products/Products';
+import ElectronicInvoice from './pages/invoices/ElectronicInvoice';
+import InvoiceList from './pages/invoices/InvoiceList';
 import './App.css';
 import Sidebar from './components/Sidebar';
 import Clients from './pages/clients/Clients';
@@ -73,6 +75,14 @@ function App() {
               <Route
                 path="/brands"
                 element={isAuth ? <Brands /> : <Navigate to="/login" />}
+              />
+              <Route
+                path="/electronic-invoice"
+                element={isAuth ? <ElectronicInvoice /> : <Navigate to="/login" />}
+              />
+              <Route
+                path="/invoice-list"
+                element={isAuth ? <InvoiceList /> : <Navigate to="/login" />}
               />
             </Routes>
             //   </div>
